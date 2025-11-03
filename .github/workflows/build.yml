@@ -1,12 +1,11 @@
-name: Build and Deploy Wedding Site
+name: Deploy to Surge
 
 on:
   push:
-    branches:
-      - main  # or 'master' — adjust if your main branch differs
+    branches: [main]
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     env:
@@ -14,24 +13,15 @@ jobs:
       AIRTABLE_BASE_ID: ${{ secrets.AIRTABLE_BASE_ID }}
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set up Node.js
+      - name: Set up Node
         uses: actions/setup-node@v4
         with:
           node-version: 18
 
       - name: Install dependencies
         run: npm install
-
-      # Optional: build the project (you can modify this if you use gulp)
-      - name: Build with Gulp
-        run: npx gulp
-
-      # Optional: confirm dist folder exists
-      - name: List build output
-        run: ls -R ./dist || echo "dist folder not found!"
 
       - name: Install Surge
         run: npm install --global surge
@@ -40,4 +30,4 @@ jobs:
         env:
           SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
           SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
-        run: surge --project ./dist --domain rkwedding.surge.sh
+        run: surge --project ./ --domain rkwedding.surge.sh
