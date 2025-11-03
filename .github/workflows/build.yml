@@ -31,7 +31,7 @@ jobs:
           echo "AIRTABLE_BASE_ID: ${AIRTABLE_BASE_ID}"
           
       - name: Fetch Airtable Data
-        run: node js/rsvp.js
+        run: node src/js/rsvp.js
 
       - name: Install Surge
         run: npm install --global surge
