@@ -30,9 +30,6 @@ jobs:
           echo "AIRTABLE_API_KEY prefix: ${AIRTABLE_API_KEY:0:5}********"
           echo "AIRTABLE_BASE_ID: ${AIRTABLE_BASE_ID}"
 
-      - name: Fetch Airtable Data
-        run: node scripts/fetchAirtable.js
-
       - name: Install Surge
         run: npm install --global surge
 
