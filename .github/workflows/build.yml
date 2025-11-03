@@ -1,14 +1,14 @@
-name: CI Build
+name: Build and Deploy Wedding Site
 
 on:
   push:
-    branches: [ main, master ]
-  pull_request:
-    branches: [ main, master ]
+    branches:
+      - main  # or 'master' — adjust if your main branch differs
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     env:
       AIRTABLE_API_KEY: ${{ secrets.AIRTABLE_API_KEY }}
       AIRTABLE_BASE_ID: ${{ secrets.AIRTABLE_BASE_ID }}
@@ -17,32 +17,27 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Use Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: 18
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
-      - name: Build (if gulpfile present)
-        run: |
-          if [ -f ./gulpfile.js ]; then
-            npm install -g gulp-cli
-            npx gulp build || npx gulp || true
-          else
-            echo "No gulpfile.js found; skipping gulp build"
-          fi
+      # Optional: build the project (you can modify this if you use gulp)
+      - name: Build with Gulp
+        run: npx gulp
 
-      - name: Show dist contents (if any)
-        run: |
-          if [ -d ./dist ]; then ls -la dist; else echo "No dist directory"; fi
+      # Optional: confirm dist folder exists
+      - name: List build output
+        run: ls -R ./dist || echo "dist folder not found!"
 
-      - name: Deploy placeholder (optional)
-        if: false
-        run: echo "Add deployment steps here (surge, rsync, gh-pages, etc.)"
+      - name: Install Surge
+        run: npm install --global surge
 
-      - name: Notes
-        run: |
-          echo "This workflow exposes AIRTABLE_API_KEY and AIRTABLE_BASE_ID from GitHub Secrets to the build environment."
-          echo "Add secrets in repository Settings → Secrets and variables → Actions."
+      - name: Deploy to Surge
+        env:
+          SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
+          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
+        run: surge --project ./dist --domain rkwedding.surge.sh
