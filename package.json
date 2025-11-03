@@ -5,7 +5,7 @@
   "main": "index.html",
   "repository": {
     "type": "git",
-    "url": "http://github.com/kcgm/wedding"
+    "url": "http://github.com/kcgm/rkwedding"
   },
   "dependencies": {
     "airtable": "^0.5.2",
@@ -29,7 +29,7 @@
   },
   "git": {
     "scripts": {
-      "pre-push": "surge --project ./dist --domain wedding"
+      "pre-push": "surge --project ./dist --domain rkwedding"
     }
   },
   "scripts": {
