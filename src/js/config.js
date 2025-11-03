@@ -13,4 +13,19 @@ const config = {
     AIRTABLE_BASE_ID: envBaseId
 };
 
+// Provide both ES module default export and CommonJS export so this file works
+// when required by different loaders/bundlers or when consumed via `require()`.
+// Also keep the runtime global for pages that set `window.__AIRTABLE_CONFIG__`.
+if (typeof window !== 'undefined') {
+    // Ensure global reflects resolved values (useful if a script wants to read it)
+    window.__AIRTABLE_CONFIG__ = window.__AIRTABLE_CONFIG__ || {};
+    window.__AIRTABLE_CONFIG__.AIRTABLE_API_KEY = window.__AIRTABLE_CONFIG__.AIRTABLE_API_KEY || envApiKey;
+    window.__AIRTABLE_CONFIG__.AIRTABLE_BASE_ID = window.__AIRTABLE_CONFIG__.AIRTABLE_BASE_ID || envBaseId;
+}
+
+// CommonJS compatibility
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = config;
+}
+
 export default config;
