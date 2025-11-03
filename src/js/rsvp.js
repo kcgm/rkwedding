@@ -1,18 +1,23 @@
 
 var Airtable = require('airtable');
 
-// Try to use the project's config module (supports bundlers that export default)
-var config = {};
-try {
-    config = require('./config').default || require('./config');
-} catch (e) {
-    // ignore - will use runtime fallback
-}
+// // Try to use the project's config module (supports bundlers that export default)
+// var config = {};
+// try {
+//     config = require('./config').default || require('./config');
+// } catch (e) {
+//     // ignore - will use runtime fallback
+// }
 
-var runtimeConfig = (typeof window !== 'undefined' && window.__AIRTABLE_CONFIG__) ? window.__AIRTABLE_CONFIG__ : {};
+// var runtimeConfig = (typeof window !== 'undefined' && window.__AIRTABLE_CONFIG__) ? window.__AIRTABLE_CONFIG__ : {};
 
-var apiKey = (config && config.AIRTABLE_API_KEY) || runtimeConfig.AIRTABLE_API_KEY || '';
-var baseId = (config && config.AIRTABLE_BASE_ID) || runtimeConfig.AIRTABLE_BASE_ID || '';
+// var apiKey = (config && config.AIRTABLE_API_KEY) || runtimeConfig.AIRTABLE_API_KEY || '';
+// var baseId = (config && config.AIRTABLE_BASE_ID) || runtimeConfig.AIRTABLE_BASE_ID || '';
+const apiKey = (typeof process !== 'undefined' && process.env.AIRTABLE_API_KEY)
+  || '';
+
+const baseId = (typeof process !== 'undefined' && process.env.AIRTABLE_BASE_ID)
+  || '';
 
 var base = new Airtable({ apiKey: apiKey }).base(baseId);
 var id, names, invites, rsvpNum, updatedNames;
