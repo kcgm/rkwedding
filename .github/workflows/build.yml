@@ -1,4 +1,4 @@
-name: Deploy to Surge
+name: Build and Deploy to Surge
 
 on:
   push:
@@ -24,10 +24,16 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Debug environment
+      - name: Build with Webpack
+        run: npx webpack --config webpack.config.js
+        env:
+          AIRTABLE_API_KEY: ${{ secrets.AIRTABLE_API_KEY }}
+          AIRTABLE_BASE_ID: ${{ secrets.AIRTABLE_BASE_ID }}
+
+      - name: Verify build output
         run: |
-          echo "AIRTABLE_API_KEY prefix: ${AIRTABLE_API_KEY:0:5}********"
-          echo "AIRTABLE_BASE_ID: ${AIRTABLE_BASE_ID}"
+          ls -la dist
+          echo "Webpack bundle built successfully."
 
       - name: Install Surge
         run: npm install --global surge
@@ -36,4 +42,4 @@ jobs:
         env:
           SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
           SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
-        run: surge --project ./ --domain rkwedding.surge.sh
+        run: surge --project ./dist --domain rkwedding.surge.sh
