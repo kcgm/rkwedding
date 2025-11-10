@@ -46,7 +46,7 @@ jobs:
           echo "Current directory: $(pwd)"
           echo "Listing files in project root:"
           ls -l
-          echo "Listing files in dist folder:"
+          echo "Listing files in js/dist folder:"
           ls -l dist || echo "dist folder not found"
 
       - name: Install Surge
