@@ -7,7 +7,7 @@ module.exports = {
   entry: './src/js/rsvp.js',
   output: {
     filename: 'rsvp.bundle.js',
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, '/src/js/dist'),
     clean: true, 
   },
   plugins: [
