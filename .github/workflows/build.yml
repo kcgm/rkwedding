@@ -22,7 +22,9 @@ jobs:
           node-version: 18
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          npm install
+          npm install --save-dev webpack webpack-cli
 
       - name: Build with Webpack
         run: npx webpack --config webpack.config.js
