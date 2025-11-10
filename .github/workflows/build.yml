@@ -34,7 +34,7 @@ jobs:
 
       - name: Verify build output
         run: |
-          ls -la dist
+          ls -la src/js/dist
           echo "Webpack bundle built successfully."
 
       - name: Install Surge
