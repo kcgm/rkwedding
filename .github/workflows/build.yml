@@ -41,13 +41,14 @@ jobs:
       #   run: |
       #     echo "RSVP bundle location:"
       #     ls -l $(pwd)/dist/rsvp.bundle.js
-      - name: Check build output
+      - name: Search for rsvp.bundle.js
         run: |
-          echo "Current directory: $(pwd)/src"
-          echo "Listing files in project root:"
-          ls -l
-          echo "Listing files in /src/js folder:"
-          ls -l /src/js || echo "dist folder not found"
+          BUNDLE_PATH=$(find . -name "rsvp.bundle.js")
+          echo "Found rsvp.bundle.js at: $BUNDLE_PATH"
+          echo "RSVP_BUNDLE_PATH=$BUNDLE_PATH" >> $GITHUB_ENV
+
+      - name: Use the bundle path
+        run: echo "RSVP bundle path is $RSVP_BUNDLE_PATH"
 
       - name: Install Surge
         run: npm install --global surge
