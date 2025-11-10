@@ -11,7 +11,7 @@ jobs:
     env:
       AIRTABLE_API_KEY: ${{ secrets.AIRTABLE_API_KEY }}
       AIRTABLE_BASE_ID: ${{ secrets.AIRTABLE_BASE_ID }}
-
+    
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -24,14 +24,13 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      # 👇 Move debug BEFORE fetch step
       - name: Debug environment
         run: |
           echo "AIRTABLE_API_KEY prefix: ${AIRTABLE_API_KEY:0:5}********"
           echo "AIRTABLE_BASE_ID: ${AIRTABLE_BASE_ID}"
-          
+
       - name: Fetch Airtable Data
-        run: node src/js/rsvp.js
+        run: node scripts/fetchAirtable.js
 
       - name: Install Surge
         run: npm install --global surge
