@@ -36,6 +36,11 @@ jobs:
         run: |
           ls -la src/js/dist
           echo "Webpack bundle built successfully.2"
+          
+      - name: Print bundle location
+        run: |
+          echo "RSVP bundle location:"
+          ls -l $(pwd)/dist/rsvp.bundle.js
 
       - name: Install Surge
         run: npm install --global surge
