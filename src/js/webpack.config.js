@@ -4,7 +4,7 @@ const webpack = require('webpack');
 
 module.exports = {
   mode: 'production',
-  entry: './src/js/rsvp.js',
+  entry: './rsvp.js',
   output: {
     filename: 'rsvp.bundle.js',
     path: path.resolve(__dirname, 'dist'),
