@@ -54,9 +54,6 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
-          BUNDLE_PATH=$(find . -name "rsvp.bundle.js")
-          echo "Found rsvp.bundle.js at: $BUNDLE_PATH"
-          echo "RSVP_BUNDLE_PATH=$BUNDLE_PATH" >> $GITHUB_ENV
 
       - name: Use the bundle path
         run: echo "RSVP bundle path is $RSVP_BUNDLE_PATH"
