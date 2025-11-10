@@ -43,10 +43,10 @@ jobs:
       #     ls -l $(pwd)/dist/rsvp.bundle.js
       - name: Check build output
         run: |
-          echo "Current directory: $(pwd)"
+          echo "Current directory: $(pwd)/src"
           echo "Listing files in project root:"
           ls -l
-          echo "Listing files in js/dist folder:"
+          echo "Listing files in /src/js folder:"
           ls -l dist || echo "dist folder not found"
 
       - name: Install Surge
