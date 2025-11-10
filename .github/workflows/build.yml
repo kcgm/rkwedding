@@ -43,6 +43,17 @@ jobs:
       #     ls -l $(pwd)/dist/rsvp.bundle.js
       - name: Search for rsvp.bundle.js
         run: |
+          echo "Current directory: $(pwd)/src"
+          echo "Listing files in project root:"
+          ls -l
+          echo "Listing files in /src/js folder:"
+          ls -l /src/js || echo "dist folder not found"
+      
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v7
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
           BUNDLE_PATH=$(find . -name "rsvp.bundle.js")
           echo "Found rsvp.bundle.js at: $BUNDLE_PATH"
           echo "RSVP_BUNDLE_PATH=$BUNDLE_PATH" >> $GITHUB_ENV
