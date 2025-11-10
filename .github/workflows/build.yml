@@ -1,47 +1,47 @@
-# name: Build and Deploy to Surge
+name: Build and Deploy to Surge
 
-# on:
-#   push:
-#     branches: [main]
+on:
+  push:
+    branches: [main]
 
-# jobs:
-#   deploy:
-#     runs-on: ubuntu-latest
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
 
-#     env:
-#       AIRTABLE_API_KEY: ${{ secrets.AIRTABLE_API_KEY }}
-#       AIRTABLE_BASE_ID: ${{ secrets.AIRTABLE_BASE_ID }}
+    env:
+      AIRTABLE_API_KEY: ${{ secrets.AIRTABLE_API_KEY }}
+      AIRTABLE_BASE_ID: ${{ secrets.AIRTABLE_BASE_ID }}
     
-#     steps:
-#       - name: Checkout repository
-#         uses: actions/checkout@v4
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-#       - name: Set up Node.js
-#         uses: actions/setup-node@v4
-#         with:
-#           node-version: 18
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
 
-#       - name: Install dependencies
-#         run: |
-#           npm install
-#           npm install --save-dev webpack webpack-cli babel-loader @babel/core @babel/preset-env dotenv
+      - name: Install dependencies
+        run: |
+          npm install
+          npm install --save-dev webpack webpack-cli babel-loader @babel/core @babel/preset-env dotenv
 
-#       - name: Build with Webpack
-#         run: npx webpack --config ./src/js/webpack.config.js
-#         env:
-#           AIRTABLE_API_KEY: ${{ secrets.AIRTABLE_API_KEY }}
-#           AIRTABLE_BASE_ID: ${{ secrets.AIRTABLE_BASE_ID }}
+      - name: Build with Webpack
+        run: npx webpack --config ./src/js/webpack.config.js
+        env:
+          AIRTABLE_API_KEY: ${{ secrets.AIRTABLE_API_KEY }}
+          AIRTABLE_BASE_ID: ${{ secrets.AIRTABLE_BASE_ID }}
 
-#       - name: Verify build output
-#         run: |
-#           ls -la src/js/dist
-#           echo "Webpack bundle built successfully.2"
+      - name: Verify build output
+        run: |
+          ls -la src/js/dist
+          echo "Webpack bundle built successfully.2"
 
-#       - name: Install Surge
-#         run: npm install --global surge
+      - name: Install Surge
+        run: npm install --global surge
 
-#       - name: Deploy to Surge
-#         env:
-#           SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
-#           SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
-#         run: surge --project ./dist --domain rkwedding.surge.sh
+      - name: Deploy to Surge
+        env:
+          SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
+          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
+        run: surge --project ./dist --domain rkwedding.surge.sh
