@@ -27,7 +27,7 @@ jobs:
           npm install --save-dev webpack webpack-cli babel-loader @babel/core @babel/preset-env dotenv
 
       - name: Build with Webpack
-        run: npx webpack --config webpack.config.js
+        run: npx webpack --config ./src/js/webpack.config.js
         env:
           AIRTABLE_API_KEY: ${{ secrets.AIRTABLE_API_KEY }}
           AIRTABLE_BASE_ID: ${{ secrets.AIRTABLE_BASE_ID }}
